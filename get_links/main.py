@@ -29,7 +29,7 @@ def get_all_pages(url_catalog, pages_num=1):
         url = url_catalog + "/?PAGEN_1=" + str(url_num + 1)
         webContent = get_page(url)
         all_pages.append(webContent)
-        sleep(2)
+        # sleep(2) # to avoid ban
 
     return all_pages
 
@@ -73,6 +73,9 @@ def get_all_urls_list(all_pages):
 
 
 def get_urls(category: str, pages_num=1):
+    """
+    This function does the magic
+    """
     print("Processing category: %s" % category)
     url_catalog = URL_SITE + "/catalog/" + category
     all_pages = get_all_pages(url_catalog, int(pages_num))
@@ -80,7 +83,7 @@ def get_urls(category: str, pages_num=1):
 
     print("Got %s object urls. Saving..." % len(url_list))
 
-    with open("../data/links/" + category + ".txt", "w") as f:
+    with open("./data/links/" + category + ".txt", "w") as f:
         for url in url_list:
             f.write("%s\n" % url)
 
